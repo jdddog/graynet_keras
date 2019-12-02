@@ -2,12 +2,12 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import os
-from urllib.error import HTTPError, URLError
 import pathlib
+from urllib.error import HTTPError, URLError
 
-import queue
+import os
 from six.moves.urllib.request import urlretrieve
+
 
 def make_folder_if_not_exists(target_dir):
     if not os.path.exists(target_dir):
@@ -19,6 +19,7 @@ def make_folder_if_not_exists(target_dir):
             raise e
     else:
         print("Already exist.:{}".format(target_dir))
+
 
 def get_file(fullpath, origin):
     fpath = fullpath
@@ -45,5 +46,3 @@ def get_file(fullpath, origin):
         if os.path.exists(fpath):
             os.remove(fpath)
         raise
-
-from keras.utils import get_file
