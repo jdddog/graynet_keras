@@ -814,3 +814,31 @@ def InceptionV3_GrayNet(input_tensor=None, input_shape=None, weights='graynet', 
         model.load_weights(weights_path, by_name=True, skip_mismatch=True)
 
     return model
+
+
+def InceptionResNetV2_GrayNet(input_tensor=None, input_shape=None, weights='graynet', **kwargs):
+    model_name = 'inception_resnetv2'
+
+    gap = INCEPTION_RESNET_V2_LMIC(input_tensor, return_tensor=True, **kwargs)
+    model = Model(inputs=input_tensor, outputs=gap, name=model_name)
+
+    # Load weights
+    if weights is not None:
+        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1])
+        model.load_weights(weights_path, by_name=True, skip_mismatch=True)
+
+    return model
+
+
+def VGG16_GrayNet(input_tensor=None, input_shape=None, weights='graynet', **kwargs):
+    model_name = 'vgg16'
+
+    gap = VGG16_LMIC(input_tensor, return_tensor=True, **kwargs)
+    model = Model(inputs=input_tensor, outputs=gap, name=model_name)
+
+    # Load weights
+    if weights is not None:
+        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1])
+        model.load_weights(weights_path, by_name=True, skip_mismatch=True)
+
+    return model
