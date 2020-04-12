@@ -1,9 +1,9 @@
-import keras.backend as K
-from keras import layers
-from keras.applications import DenseNet121
-from keras.layers import Concatenate, Conv2D, BatchNormalization, Activation, MaxPooling2D, Dropout, UpSampling2D, \
-    AveragePooling2D, GlobalAveragePooling2D, Lambda
-from keras.models import Model, Input
+import tensorflow.keras.backend as K
+from tensorflow. keras import layers
+from tensorflow.keras.applications import DenseNet121
+from tensorflow.keras.layers import Concatenate, Conv2D, BatchNormalization, Activation, MaxPooling2D, Dropout, UpSampling2D, \
+    AveragePooling2D, GlobalAveragePooling2D, Lambda, Input
+from tensorflow.keras.models import Model
 
 from graynet_keras.model_config import get_weight_path
 
@@ -786,59 +786,59 @@ def UnetEncoder_GrayNet(input_tensor=None, input_shape=None, weights='graynet', 
     return model
 
 
-def ResNet50_GrayNet(input_tensor=None, input_shape=None, weights='graynet', **kwargs):
+def ResNet50_GrayNet(input_tensor=None, weights='graynet', w_reg=None, base_dir=None):
     # input_tensor = init_input_tensor(input_shape, input_tensor)
     model_name = 'resnet50'
 
-    gap = RESNET50_LMIC(input_tensor, return_tensor=True, **kwargs)
+    gap = RESNET50_LMIC(input_tensor, w_reg, return_tensor=True)
     model = Model(inputs=input_tensor, outputs=gap, name=model_name)
 
     # Load GrayNet weight
     if weights is not None:
-        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1])
+        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1], base_dir=base_dir)
         model.load_weights(weights_path, by_name=True, skip_mismatch=True)
 
     return model
 
 
-def InceptionV3_GrayNet(input_tensor=None, input_shape=None, weights='graynet', **kwargs):
+def InceptionV3_GrayNet(input_tensor=None, weights='graynet', w_reg=None, base_dir=None):
     # input_tensor = init_input_tensor(input_shape, input_tensor)
     model_name = 'inceptionv3'
 
-    gap = INCEPTIONV3_LMIC(input_tensor, return_tensor=True, **kwargs)
+    gap = INCEPTIONV3_LMIC(input_tensor, w_reg, return_tensor=True)
     model = Model(inputs=input_tensor, outputs=gap, name=model_name)
 
     # Load GrayNet weight
     if weights is not None:
-        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1])
+        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1], base_dir=base_dir)
         model.load_weights(weights_path, by_name=True, skip_mismatch=True)
 
     return model
 
 
-def InceptionResNetV2_GrayNet(input_tensor=None, input_shape=None, weights='graynet', **kwargs):
+def InceptionResNetV2_GrayNet(input_tensor=None, weights='graynet', w_reg=None, base_dir=None):
     model_name = 'inception_resnetv2'
 
-    gap = INCEPTION_RESNET_V2_LMIC(input_tensor, return_tensor=True, **kwargs)
+    gap = INCEPTION_RESNET_V2_LMIC(input_tensor, w_reg, return_tensor=True)
     model = Model(inputs=input_tensor, outputs=gap, name=model_name)
 
     # Load weights
     if weights is not None:
-        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1])
+        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1], base_dir=base_dir)
         model.load_weights(weights_path, by_name=True, skip_mismatch=True)
 
     return model
 
 
-def VGG16_GrayNet(input_tensor=None, input_shape=None, weights='graynet', **kwargs):
+def VGG16_GrayNet(input_tensor=None, weights='graynet', w_reg=None, base_dir=None):
     model_name = 'vgg16'
 
-    gap = VGG16_LMIC(input_tensor, return_tensor=True, **kwargs)
+    gap = VGG16_LMIC(input_tensor, w_reg, return_tensor=True)
     model = Model(inputs=input_tensor, outputs=gap, name=model_name)
 
     # Load weights
     if weights is not None:
-        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1])
+        weights_path = get_weight_path(model_name, weights, input_tensor.shape[-1], base_dir=base_dir)
         model.load_weights(weights_path, by_name=True, skip_mismatch=True)
 
     return model

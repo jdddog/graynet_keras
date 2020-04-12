@@ -5,14 +5,15 @@ from graynet_keras.utils import get_file
 pre_trained_base_dir = "pretrained-weights"
 
 
-def get_weight_path(init_model_name, pretrained_model_name, n_ch):
+def get_weight_path(init_model_name, pretrained_model_name, n_ch, base_dir=None):
     weights_filename = None
 
     if pretrained_model_name == None:
         return None
 
-    package_dir = __name__.split('.')
-    base_dir = os.path.join(os.path.abspath('.'), package_dir[0], 'pretrained-weights')
+    if base_dir is None:
+        package_dir = __name__.split('.')
+        base_dir = os.path.join(os.path.abspath('.'), package_dir[0], 'pretrained-weights')
 
     # -------------------------------------------------------
     # Classification
